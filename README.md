@@ -1,61 +1,107 @@
-# FireNances 🔥
+<p align="center">
+  <img src="public/icon.png" width="72" alt="" />
+</p>
 
-Finanzas personales completas **sin conectar el banco**: todo se introduce a mano, desde un CSV/PDF del banco o
-pasándole los informes a la IA. Local-first (IndexedDB en tu navegador), sin cuenta y con IA gratuita.
+<h1 align="center">FireNances</h1>
 
-## Qué hace
+<p align="center">
+  <strong>Finanzas personales sin conectar el banco.</strong><br />
+  Gastos, suscripciones, nómina, patrimonio, inversiones y planificación FIRE. Gratis, sin cuenta y con tus datos en tu navegador.
+</p>
 
-| Sección | Qué incluye |
+---
+
+## Por qué FireNances
+
+La mayoría de apps de finanzas te piden las claves del banco. FireNances no: apuntas tus movimientos a mano, importas
+el extracto que descargas tú (CSV o PDF) o se lo pasas a la IA para que lo lea por ti. Todo se guarda en tu
+navegador, en tu dispositivo.
+
+- **Sin conexión bancaria** y sin registro.
+- **Local-first**: tus datos viven en tu navegador (IndexedDB). Puedes exportarlos o borrarlos cuando quieras.
+- **Pensada para España**: IRPF y Seguridad Social, 12 o 14 pagas, calendario fiscal (Renta, 720/721, planes de
+  pensiones, modelos 130/303 para autónomos).
+- **IA gratuita y opcional** para importar extractos, leer nóminas, revisar tus gastos y analizar tus inversiones.
+
+## Qué incluye
+
+| Sección | Qué hace |
 | --- | --- |
-| **Inicio** | Patrimonio neto e histórico, previsión del mes (ingresos, gastado, libre a fin de mes), avisos automáticos, próximos 21 días, cartera, presupuestos, progreso FIRE |
-| **Movimientos** | Gastos, ingresos y traspasos; filtros, búsqueda, edición masiva, exportación CSV, categoría sugerida al escribir |
-| **Gastos** | Ingresos vs gastos 12 meses, gasto por categoría vs media, comercios top, gasto acumulado vs mes anterior, 50/30/20, presupuestos, revisión con IA |
-| **Suscripciones** | Suscripciones, recibos e ingresos recurrentes; coste mensual/anual, próximos cobros, pruebas gratuitas, registro automático de cobros, detección automática en tus movimientos |
-| **Calendario** | Cobros, nómina, calendario fiscal español (Renta, 720/721, plan de pensiones, 130/303 para autónomos), resultados y dividendos de tu cartera, metas y compras |
-| **Nómina y previsión** | Bruto → neto (IRPF 2026 estimado + Seguridad Social, 12/14 pagas), lectura de nómina con IA, reparto de cada euro (50/25/15/10 editable), previsión del mes por categoría, liquidez prevista 12 meses |
-| **Compras planeadas** | Lista de deseos con prioridad, ahorro apartado, cuánto apartar al mes, cuándo podrás pagarlo (cascada por prioridad), plazos con TAE, regla de los 30 días, coste en horas de trabajo |
-| **Ahorro y metas** | Metas con fecha (o vinculadas a una cuenta), aportación necesaria, ETA, simulador de 5 estrategias con inflación |
-| **FIRE** | Número FIRE, Lean/Fat/Barista/Coast FIRE, edad estimada, trayectoria, Monte Carlo (800 escenarios), supervivencia del retiro, palancas |
-| **Patrimonio** | Cuentas (saldo = apertura + movimientos, «ajustar saldo» para cuadrar con el banco), bienes y deudas, composición e histórico diario |
-| **Inversiones** | Fondos indexados, ETFs, acciones, cripto, planes de pensiones; por participaciones o por valor; «cartera por porcentajes»; precios automáticos; peso vs objetivo y rebalanceo con la aportación; noticias, redes, calendario corporativo y análisis con IA (qué movió el precio, qué viene, escenarios) |
-| **Importar con IA** | CSV (sin IA, columnas autodetectadas), PDF o texto del extracto (IA), informe del bróker → cartera; revisión antes de guardar, duplicados, saldo final |
-| **Asistente** | Chat que responde con tus datos y puede apuntar gastos, recurrentes, metas, compras o eventos (con deshacer) |
+| **Inicio** | Patrimonio neto e histórico, previsión del mes (ingresos, gastado, libre a fin de mes), avisos, próximos cobros, cartera, presupuestos y progreso FIRE |
+| **Movimientos** | Gastos, ingresos y traspasos con filtros, búsqueda, edición masiva, exportación a CSV y categoría sugerida al escribir |
+| **Gastos** | Ingresos frente a gastos (12 meses), gasto por categoría frente a tu media, comercios top, regla 50/30/20, presupuestos y revisión con IA |
+| **Suscripciones** | Suscripciones, recibos e ingresos recurrentes: coste mensual y anual, próximos cobros, pruebas gratuitas y detección automática |
+| **Calendario** | Cobros, nómina, calendario fiscal español, resultados y dividendos de tu cartera, metas y compras |
+| **Nómina y previsión** | De bruto a neto, lectura de la nómina con IA, reparto de cada euro y liquidez prevista a 12 meses |
+| **Compras planeadas** | Lista de deseos con prioridad, cuánto apartar al mes, cuándo podrás pagarlo, financiación con TAE y coste en horas de trabajo |
+| **Ahorro y metas** | Metas con fecha, aportación necesaria, fecha estimada y simulador de estrategias con inflación |
+| **FIRE** | Número FIRE, Lean/Fat/Barista/Coast FIRE, edad estimada, simulación Monte Carlo y palancas |
+| **Patrimonio** | Cuentas, bienes y deudas con su evolución diaria; «ajustar saldo» para cuadrar con el banco |
+| **Inversiones** | Fondos indexados, ETFs, acciones, cripto y planes de pensiones con precios automáticos, rebalanceo, noticias y análisis con IA |
+| **Importar con IA** | CSV (sin IA, columnas autodetectadas), PDF o texto del extracto, informe del bróker; revisión y detección de duplicados antes de guardar |
+| **Asistente** | Chat que responde con tus datos y puede apuntar gastos, recurrentes, metas o compras por ti (con deshacer) |
 
-## Arrancar
+## Empezar
+
+Requisitos: Node.js 22 o superior.
 
 ```bash
 npm install
-npm run dev        # http://localhost:3200
+npm run dev
 ```
 
-Ajustes → Datos → «Cargar datos de ejemplo» para verlo con seis meses de datos.
+Abre <http://localhost:3200>. La portada está en `/` y la app en `/dashboard`. Para verla con datos, pulsa
+«Probar con datos de ejemplo» en el panel (o Ajustes → Datos).
 
-## IA (mismo método que Masterity)
+## Inteligencia artificial
 
-Proveedores gratuitos en cadena, sin elegir modelo: **OpenRouter** (`openrouter/free`), **Gemini**
-(`gemini-flash-latest`) y un modo sin clave de cupo pequeño. Con una clave de **Gemini** además se activa la
-**búsqueda en Google** para el análisis de inversiones, el resumen de cartera y el valor liquidativo de fondos.
-Las claves se guardan solo en el navegador. Ajustes → Inteligencia artificial.
+Funciona sin configurar nada gracias a un proveedor gratuito con poco cupo. Para más cupo, pega una clave gratuita en
+Ajustes → Inteligencia artificial:
 
-## Datos de mercado (sin claves)
+| Proveedor | Dónde conseguir la clave | Extra |
+| --- | --- | --- |
+| Google Gemini | [aistudio.google.com/apikey](https://aistudio.google.com/apikey) | Búsqueda en Google para noticias, análisis y valor liquidativo de fondos |
+| OpenRouter | [openrouter.ai/keys](https://openrouter.ai/keys) | Modelos gratuitos elegidos automáticamente |
+
+Los proveedores se usan en cadena: si uno falla o se queda sin cupo, entra el siguiente. Las claves se guardan solo en
+tu navegador.
+
+## Datos de mercado
+
+Sin claves. Las cotizaciones pasan por la ruta `/api/market` del propio servidor, con caché.
 
 | Qué | Fuente |
 | --- | --- |
-| Acciones y ETFs de EE. UU. | Nasdaq (con Yahoo de respaldo) |
-| ETFs europeos por ISIN | justETF (cotización + histórico) |
+| Acciones y ETFs de EE. UU. | Nasdaq (Yahoo Finance de respaldo) |
+| ETFs europeos por ISIN | justETF |
 | Fondos indexados por ISIN | Financial Times (valor liquidativo) |
-| Acciones de cualquier bolsa (Tokio, Estocolmo, Madrid, Londres…) | Financial Times: búsqueda, cotización (~15 min de retraso) e histórico |
-| Tickers con sufijo (VWCE.DE, 6702.T) | Yahoo Finance (limita mucho; cae a FT o al ISIN) |
-| Cripto | Binance (WebSocket en tiempo real) y CoinGecko (respaldo e histórico) |
+| Acciones de otras bolsas (Madrid, Londres, Tokio…) | Financial Times (unos 15 min de retraso) |
+| Criptomonedas | Binance en tiempo real y CoinGecko |
 | Divisas | Frankfurter (BCE) |
-| Noticias | Google News RSS (es + en) y Yahoo |
-| Redes | Bluesky (búsqueda pública; X/Twitter no tiene API gratuita) |
+| Noticias y redes | Google News y Bluesky |
 | Resultados y dividendos | Nasdaq |
 
-Todo pasa por `/api/market` (el servidor de la app) con caché en memoria. **Tiempo real**: cripto por WebSocket; acciones y ETFs de EE. UU. cada 15 s (04:00–20:00 hora de Nueva York) y ETFs europeos cada 30 s (08:00–22:00 hora de Berlín) mientras la app está abierta.
+Mientras la app está abierta, las criptomonedas se actualizan en tiempo real, las acciones y ETFs de EE. UU. cada 15 s
+en horario de mercado y los ETFs europeos cada 30 s.
 
-## Calidad
+## Publicarla
 
-`npm run check` (tsc + eslint + vitest) y `npm run build`. Ver `docs/ARCHITECTURE.md`.
+Consulta [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md). Lo mínimo es definir `NEXT_PUBLIC_SITE_URL` con tu dominio
+(sitemap, Open Graph y URLs canónicas). Vercel funciona sin configuración extra.
 
-> FireNances es una herramienta educativa: no es asesoramiento financiero.
+## Desarrollo
+
+| Comando | Qué hace |
+| --- | --- |
+| `npm run dev` | Servidor de desarrollo en el puerto 3200 |
+| `npm run check` | Tipos, lint y tests |
+| `npm run build` | Build de producción |
+| `npm run build:standalone` | Servidor autocontenido para Docker o cualquier host Node |
+
+Stack: Next.js 16, React 19, Tailwind CSS 4, Zustand, Recharts y Zod. La arquitectura está en
+[docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
+
+## Aviso
+
+FireNances es una herramienta educativa. **No es asesoramiento financiero, fiscal ni de inversión.** Los cálculos de
+impuestos, las previsiones y los análisis con IA son estimaciones.

@@ -1,23 +1,14 @@
 "use client";
 
 import { ThemeProvider } from "next-themes";
-import { useEffect } from "react";
 import { ToastHost } from "@/components/ui";
-import { AppEffects } from "@/components/shell/app-effects";
-import { BootGate } from "@/components/shell/boot-gate";
-import { hydrateAll } from "@/store/hydrate";
 
+// Shared by the public site and the app. Storage, boot and live data start in the app layout only, so the
+// public pages render on the server without waiting for IndexedDB.
 export function Providers({ children }: { children: React.ReactNode }) {
-  useEffect(() => {
-    void hydrateAll();
-  }, []);
-
   return (
     <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
-      <BootGate>
-        <AppEffects />
-        {children}
-      </BootGate>
+      {children}
       <ToastHost closeLabel="Cerrar" />
     </ThemeProvider>
   );

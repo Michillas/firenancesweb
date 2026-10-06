@@ -115,7 +115,7 @@ export function AiSection() {
       <Card.Header className="flex-wrap">
         <div>
           <Card.Title as="h2">Inteligencia artificial</Card.Title>
-          <Card.Description>Mismo sistema que Masterity: proveedores gratuitos en cadena. Con una clave de Gemini, además, búsqueda en internet para noticias y análisis.</Card.Description>
+          <Card.Description>Proveedores gratuitos en cadena: si uno falla o se queda sin cupo, se usa el siguiente. Con una clave de Gemini, además, búsqueda en internet para noticias y análisis.</Card.Description>
         </div>
         <Button size="sm" variant="secondary" onPress={() => setOpen(true)}>
           <Settings2 size={16} aria-hidden="true" />

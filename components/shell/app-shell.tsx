@@ -124,7 +124,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
 
       <aside aria-label="Navegación principal" className={cn("sticky top-0 hidden h-dvh shrink-0 flex-col gap-3 px-3 py-5 transition-[width] duration-200 lg:flex", collapsed ? "w-[84px]" : "w-[17rem]")}>
         <div className={cn("flex items-center gap-3 px-1", collapsed && "flex-col")}>
-          <Link href="/" aria-label="FireNances" className="flex min-w-0 flex-1 items-center gap-3">
+          <Link href="/dashboard" aria-label="FireNances" className="flex min-w-0 flex-1 items-center gap-3">
             <span className="grid size-11 shrink-0 place-items-center rounded-xl border border-border bg-surface">
               <LogoMark className="size-6" />
             </span>
@@ -204,7 +204,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
 
       <div className="flex min-w-0 flex-1 flex-col lg:py-3 lg:pr-3">
         <header className="sticky top-0 z-30 flex h-[var(--header-h)] items-center justify-between gap-3 border-b border-border bg-background/85 px-4 backdrop-blur-xl lg:hidden">
-          <Link href="/" aria-label="FireNances" className="flex items-center gap-3">
+          <Link href="/dashboard" aria-label="FireNances" className="flex items-center gap-3">
             <span className="grid size-9 place-items-center rounded-xl border border-border bg-surface">
               <LogoMark className="size-5" />
             </span>

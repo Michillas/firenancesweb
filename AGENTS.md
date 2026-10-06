@@ -31,6 +31,9 @@ Priority: `docs/ARCHITECTURE.md` > this file. Read the architecture doc before c
 - New collection: schema in `core/domain/*`, export from `core/domain/index.ts`, instance in `store/stores.ts`
   (`name` is a storage key: never rename), add it to `dataCollections` (backed up) or `cacheCollections`.
 - New screen: `features/<name>/`, route in `app/(app)/<name>/page.tsx`, nav entry in `components/shell/nav-items.ts`.
+  The app home is `/dashboard`; `/` is the public landing (`app/(site)`, which never imports `store/`).
+- New public page: `app/(site)/<slug>/page.tsx` with `export const metadata = publicPage({ path, title, description })`
+  and an entry in `app/sitemap.ts`.
 - New AI task: prompt + zod schema in `core/ai/tasks.ts`; always through `gateway.chatJSON` (or `grounded.search`
   + `extractJson` for web-grounded answers, with a plain-chat fallback).
 - New market source: parser in `core/market/*` with a fixture test, wire it in `core/market/service.ts`, allow it

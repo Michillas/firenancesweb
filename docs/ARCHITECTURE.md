@@ -1,7 +1,6 @@
 # FireNances — Architecture
 
 Single source of truth for structural decisions. Update it in the same change that alters a contract.
-Built on the Masterity skeleton (same layers, storage engine, AI gateway and UI kit).
 
 ## 1. Goals
 
@@ -28,6 +27,16 @@ lib/          Helpers: formatting (es-ES), colours, pdf text extraction, server-
 `app → features → store → core`; `components → core/lib`. ESLint (`no-restricted-imports`) fails the build on a
 violation. `core/` imports nothing outside `core/`.
 
+### Routes: public site vs app
+
+- `app/(site)/` — public, server-rendered, indexable: `/` (landing, `features/landing/`) and `/privacidad`. No
+  stores, no IndexedDB: these pages must never import `store/` (it self-hydrates on import).
+- `app/(app)/` — the app (`/dashboard`, `/transactions`, …). Its layout mounts `AppProviders` (hydration, `BootGate`,
+  settings effects) and sends `noindex`.
+- SEO lives in the root layout metadata (`metadataBase` from `NEXT_PUBLIC_SITE_URL`), `lib/seo.ts#publicPage`
+  (canonical + Open Graph per public page), `app/{robots,sitemap,manifest}.ts`, `app/opengraph-image.tsx`,
+  `app/apple-icon.tsx` and `app/icons/[size]` (PWA icons). Generated images use `lib/brand-image.ts`.
+
 ## 3. Domain and persistence
 
 - Schemas in `core/domain/*` (zod). Additive migrations: new fields get `.default()`.
@@ -42,7 +51,7 @@ violation. `core/` imports nothing outside `core/`.
   survives February). `logDueRecurring` turns due charges into transactions once (`loggedThrough`), never
   back-filling dates before the item was created.
 - Net-worth snapshots: one row per day (`nw_YYYY-MM-DD`), recorded 2 s after any money-relevant change.
-- Storage engine (from Masterity): IndexedDB, one record per entity, debounced writes, BroadcastChannel between tabs.
+- Storage engine: IndexedDB, one record per entity, debounced writes, BroadcastChannel between tabs.
 
 ## 4. Core logic (`core/logic`)
 
@@ -80,7 +89,7 @@ snapshots are throttled (30 s) so ticking prices do not rewrite them constantly.
 
 ## 6. AI
 
-Same gateway as Masterity (`core/ai/gateway.ts`): providers in the user's order, cooldowns on failure,
+The AI gateway (`core/ai/gateway.ts`): providers in the user's order, cooldowns on failure,
 `chatJSON` repairs JSON. Tasks (`core/ai/tasks.ts`): statement → transactions (chunked), payslip, broker report →
 holdings, holding analysis, portfolio brief, spending review, NAV lookup. `core/ai/grounded.ts` calls Gemini with
 the Google Search tool when a Gemini key exists (directly or through `/api/ai/grounded`) and returns sources;

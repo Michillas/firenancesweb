@@ -17,7 +17,7 @@ export const NAV_GROUPS: { id: NavItem["group"]; label: string }[] = [
 ];
 
 export const NAV_ITEMS: NavItem[] = [
-  { href: "/", label: "Inicio", icon: Home, group: "daily", primary: true },
+  { href: "/dashboard", label: "Inicio", icon: Home, group: "daily", primary: true },
   { href: "/transactions", label: "Movimientos", icon: ArrowLeftRight, group: "daily", primary: true },
   { href: "/analysis", label: "Gastos", icon: PieChart, group: "daily" },
   { href: "/subscriptions", label: "Suscripciones", icon: Repeat, group: "daily" },
@@ -31,4 +31,4 @@ export const NAV_ITEMS: NavItem[] = [
   { href: "/import", label: "Importar con IA", icon: Sparkles, group: "tools" },
 ];
 
-export const isActive = (pathname: string, href: string) => (href === "/" ? pathname === "/" : pathname === href || pathname.startsWith(`${href}/`));
+export const isActive = (pathname: string, href: string) => pathname === href || pathname.startsWith(`${href}/`);
