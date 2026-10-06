@@ -1,0 +1,431 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: "Satoshi";
+  src: url("/fonts/Satoshi-Variable.ttf") format("truetype");
+  font-weight: 300 900;
+  font-display: swap;
+}
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Semantic tokens. Components never use raw colours.
+   Look: neutral near-black panels, hairline grey borders, one emerald accent with soft glows. */
+@theme inline {
+  --font-sans: "Satoshi", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, monospace;
+  /* Calmer type: the whole UI drops one weight step. */
+  /* Light, editorial type (reference: "SevenTeen" finance panel). */
+  --font-weight-black: 600;
+  --font-weight-extrabold: 560;
+  --font-weight-bold: 520;
+  --font-weight-semibold: 500;
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-surface: var(--surface);
+  --color-surface-secondary: var(--surface-secondary);
+  --color-surface-tertiary: var(--surface-tertiary);
+  --color-overlay: var(--overlay);
+  --color-border: var(--border);
+  --color-separator: var(--separator);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-brand: var(--brand);
+  --color-brand-foreground: var(--brand-foreground);
+  --color-danger: var(--danger);
+  --color-danger-foreground: var(--danger-foreground);
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
+  --color-field-background: var(--field-background);
+  --color-focus: var(--accent);
+  --shadow-card: var(--card-shadow);
+  --shadow-lift: 0 24px 48px -12px rgba(0, 0, 0, 0.35);
+}
+
+/* Light: mint paper, white glass cards, dark-green ink. Lime stays the brand colour on buttons;
+   links and active text use a darker green that keeps AA contrast on white. */
+:root {
+  color-scheme: light;
+  --background: #f4f5f4;
+  --foreground: #0d0f0e;
+  --surface: #ffffff;
+  --surface-secondary: #f5f6f5;
+  --surface-tertiary: #e9ebea;
+  --overlay: #ffffff;
+  --border: #e3e5e4;
+  --separator: #e3e5e4;
+  --muted: #5f6763;
+  --accent: #15803d;
+  --accent-edge: #116632;
+  --accent-foreground: #ffffff;
+  --brand: #16a34a;
+  --brand-foreground: #ffffff;
+  --glow: rgba(22, 163, 74, 0.16);
+  --danger: #c0392f;
+  --danger-edge: #8a2720;
+  --danger-foreground: #ffffff;
+  --success: #15803d;
+  --success-edge: #116632;
+  --success-foreground: #ffffff;
+  --warning: #b45309;
+  --warning-foreground: #ffffff;
+  --field-background: #f7f8f7;
+  --card-shadow: 0 1px 2px rgba(16, 24, 20, 0.04);
+  /* Chart tokens: validated categorical order (green-led), light steps. */
+  --series-1: #4f8a0b;
+  --series-2: #2a78d6;
+  --series-3: #eb6834;
+  --series-4: #1baf7a;
+  --series-5: #eda100;
+  --series-6: #e87ba4;
+  --series-7: #4a3aa7;
+  --series-8: #e34948;
+  /* Single-series hero charts (balance, price): no categorical constraint. */
+  --chart-hero: #16a34a;
+  --chart-grid: #e7e9e8;
+  --chart-axis: #d4d8d6;
+  --chart-muted: #6b736f;
+  --header-h: 3.75rem;
+  --nav-h: 0px;
+}
+
+/* Dark: the reference look. */
+.dark {
+  color-scheme: dark;
+  --background: #070707;
+  --foreground: #f2f3f2;
+  --surface: #111211;
+  --surface-secondary: #161716;
+  --surface-tertiary: #1f201f;
+  --overlay: #151615;
+  --border: #252625;
+  --separator: #252625;
+  --muted: #8b8f8c;
+  --accent: #34d399;
+  --accent-edge: #10b981;
+  --accent-foreground: #03140c;
+  --brand: #34d399;
+  --brand-foreground: #03140c;
+  --glow: rgba(52, 211, 153, 0.16);
+  --danger: #f2727b;
+  --danger-edge: #b4504a;
+  --danger-foreground: #2a0b09;
+  --success: #34d399;
+  --success-edge: #10b981;
+  --success-foreground: #03140c;
+  --warning: #f5a524;
+  --warning-foreground: #2b1700;
+  --field-background: #0d0e0d;
+  --card-shadow: 0 1px 0 rgba(255, 255, 255, 0.025) inset;
+  --series-1: #6aa80f;
+  --series-2: #3987e5;
+  --series-3: #d95926;
+  --series-4: #199e70;
+  --series-5: #c98500;
+  --series-6: #d55181;
+  --series-7: #9085e9;
+  --series-8: #e66767;
+  --chart-hero: #34d399;
+  --chart-grid: #1c1d1c;
+  --chart-axis: #2a2b2a;
+  --chart-muted: #7c807d;
+}
+
+@media (max-width: 1023px) {
+  :root { --nav-h: 5.25rem; }
+}
+
+/* ---- Accessibility preferences ---- */
+html { font-size: calc(16px * var(--text-scale, 1)); }
+
+html[data-contrast="high"] {
+  --border: #8aa38f;
+  --separator: #8aa38f;
+  --muted: #33443a;
+}
+html.dark[data-contrast="high"] {
+  --border: #4d6b57;
+  --separator: #4d6b57;
+  --muted: #c9d8cd;
+}
+
+html[data-reduce-motion="true"] *,
+html[data-reduce-motion="true"] *::before,
+html[data-reduce-motion="true"] *::after {
+  animation-duration: 0.001ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.001ms !important;
+  scroll-behavior: auto !important;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  background:
+    radial-gradient(42rem 26rem at 0% 0%, var(--glow), transparent 70%),
+    var(--background);
+  background-attachment: fixed;
+}
+
+button { -webkit-tap-highlight-color: transparent; }
+button, input, select, textarea { font: inherit; }
+
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 0.5rem; }
+
+.skip-link {
+  position: absolute; left: 0.5rem; top: -4rem; z-index: 100;
+  padding: 0.5rem 1rem; border-radius: 0.75rem;
+  background: var(--brand); color: var(--brand-foreground); font-weight: 700;
+  transition: top 0.15s;
+}
+.skip-link:focus { top: 0.5rem; }
+
+@layer components {
+  /* Glass card: hairline border, faint top sheen. */
+  .card {
+    position: relative;
+    /* Grid/flex children default to min-width:auto and would push the page sideways on phones. */
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    border: 1px solid var(--border);
+    border-radius: 1.25rem;
+    background: var(--surface);
+    box-shadow: var(--card-shadow);
+    padding: 1.25rem 1.35rem;
+  }
+
+  .btn {
+    --edge: var(--border);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    min-height: 2.6rem;
+    padding: 0 1.1rem;
+    border: 1px solid var(--edge);
+    border-radius: 0.85rem;
+    font-weight: 600;
+    font-size: 0.92rem;
+    line-height: 1.2;
+    white-space: nowrap;
+    cursor: pointer;
+    user-select: none;
+    transition: transform 0.08s, box-shadow 0.15s, background-color 0.15s, filter 0.15s, border-color 0.15s;
+  }
+  .btn:active:not(:disabled):not([aria-disabled="true"]) { transform: scale(0.97); }
+  .btn:disabled, .btn[aria-disabled="true"] { opacity: 0.5; cursor: not-allowed; }
+  .btn-sm { min-height: 2.15rem; padding: 0 0.8rem; font-size: 0.84rem; border-radius: 0.75rem; }
+  .btn-lg { min-height: 3.25rem; padding: 0 1.6rem; font-size: 1.02rem; border-radius: 1rem; }
+  .btn-icon { padding: 0; width: 2.6rem; }
+  .btn-icon.btn-sm { width: 2.15rem; }
+
+  .btn-primary {
+    background: var(--brand); color: var(--brand-foreground); --edge: var(--brand);
+    box-shadow: 0 6px 18px -10px var(--brand);
+  }
+  .btn-primary:hover:not(:disabled) { filter: brightness(1.06); }
+  .btn-danger { background: var(--danger); color: var(--danger-foreground); --edge: var(--danger); }
+  .btn-success { background: var(--success); color: var(--success-foreground); --edge: var(--success); }
+  .btn-secondary { background: var(--surface-secondary); color: var(--foreground); --edge: var(--border); }
+  .btn-secondary:hover:not(:disabled) { background: var(--surface-tertiary); }
+  .btn-ghost, .btn-tertiary, .btn-soft { border-color: transparent; }
+  .btn-ghost { background: transparent; color: var(--foreground); }
+  .btn-ghost:hover:not(:disabled) { background: var(--surface-secondary); }
+  .btn-tertiary { background: var(--surface-secondary); color: var(--foreground); }
+  .btn-tertiary:hover:not(:disabled) { background: var(--surface-tertiary); }
+  .btn-soft { background: color-mix(in srgb, var(--accent) 14%, transparent); color: var(--accent); }
+  .btn-soft:hover:not(:disabled) { background: color-mix(in srgb, var(--accent) 22%, transparent); }
+
+  .field {
+    width: 100%;
+    min-height: 2.6rem;
+    border: 1px solid var(--border);
+    border-radius: 0.85rem;
+    background: var(--field-background);
+    color: var(--foreground);
+    padding: 0.5rem 0.85rem;
+    font-weight: 500;
+    font-size: 0.93rem;
+    transition: border-color 0.15s, background-color 0.15s, box-shadow 0.15s;
+  }
+  .field::placeholder { color: var(--muted); opacity: 0.75; font-weight: 450; }
+  .field:focus { outline: none; border-color: color-mix(in srgb, var(--accent) 60%, var(--border)); }
+  .field:focus-visible { outline: none; box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 22%, transparent); }
+  select.field { appearance: none; padding-right: 2.5rem; cursor: pointer;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23889' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3Cpath d='m8 10.5 4 4 4-4'/%3E%3C/svg%3E");
+    background-repeat: no-repeat; background-position: right 0.8rem center; }
+  .dark input[type="date"].field::-webkit-calendar-picker-indicator { filter: invert(0.8); }
+
+  .progress-track { height: 0.6rem; border-radius: 999px; overflow: hidden; background: var(--surface-tertiary); }
+  .progress-track.sm { height: 0.45rem; }
+  .progress-fill { height: 100%; border-radius: 999px; background: var(--accent); transition: width 0.3s ease; box-shadow: 0 0 12px -2px currentColor; }
+
+  .chip {
+    display: inline-flex; align-items: center; gap: 0.3rem;
+    min-height: 1.6rem; padding: 0 0.65rem; border-radius: 0.55rem;
+    font-size: 0.76rem; font-weight: 600; border: 1px solid transparent;
+    background: var(--surface-secondary); color: var(--foreground);
+  }
+  .chip-sm { min-height: 1.35rem; padding: 0 0.5rem; font-size: 0.7rem; }
+  .chip-accent { background: color-mix(in srgb, var(--accent) 14%, transparent); color: var(--accent); }
+  .chip-success { background: color-mix(in srgb, var(--success) 15%, transparent); color: var(--success); }
+  .chip-warning { background: color-mix(in srgb, var(--warning) 16%, transparent); color: var(--warning); }
+  .chip-danger { background: color-mix(in srgb, var(--danger) 14%, transparent); color: var(--danger); }
+  .chip-primary { background: var(--brand); color: var(--brand-foreground); }
+
+  .spinner {
+    display: inline-block; width: 1.4rem; height: 1.4rem; border-radius: 50%;
+    border: 3px solid color-mix(in srgb, currentColor 25%, transparent); border-top-color: currentColor;
+    animation: spin 0.8s linear infinite;
+  }
+  .spinner-sm { width: 1rem; height: 1rem; border-width: 2px; }
+  .spinner-lg { width: 2.25rem; height: 2.25rem; border-width: 4px; }
+
+  /* Clickable list tile. */
+  .choice {
+    min-width: 0;
+    display: flex; align-items: center; gap: 0.85rem; width: 100%; text-align: left;
+    border: 1px solid var(--border); border-radius: 1.1rem; background: var(--surface-secondary);
+    padding: 0.85rem 1rem; font-weight: 500; cursor: pointer;
+    transition: transform 0.08s, border-color 0.15s, background-color 0.15s;
+  }
+  .choice:hover:not(:disabled) { background: var(--surface-tertiary); border-color: color-mix(in srgb, var(--accent) 25%, var(--border)); }
+  .choice:active:not(:disabled) { transform: scale(0.99); }
+  .choice[aria-checked="true"], .choice[aria-pressed="true"] {
+    border-color: color-mix(in srgb, var(--accent) 55%, var(--border)); background: color-mix(in srgb, var(--accent) 10%, var(--surface-secondary));
+  }
+  .choice:disabled { cursor: default; }
+
+  /* Sidebar / tab active state: lime light pooling from the left (reference "Discover" pill). */
+  /* Sidebar active item: a quiet bordered tile (reference "Dashboard" row). */
+  .nav-active {
+    background: var(--surface-secondary);
+    border-color: var(--border);
+  }
+
+  /* Small stat pill in the top bar (reference "Fiat / Trading" chips). */
+  .stat-pill {
+    display: flex; flex-direction: column; justify-content: center; gap: 0.1rem;
+    min-width: 9.5rem; padding: 0.45rem 0.85rem; border-radius: 1rem;
+    border: 1px solid var(--border); background: var(--surface);
+  }
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes pop-in { from { opacity: 0; transform: translateY(14px) scale(0.98); } to { opacity: 1; transform: none; } }
+.pop-in { animation: pop-in 0.22s cubic-bezier(0.22, 1, 0.36, 1) both; }
+
+/* Native <dialog> modals: focus trap, Esc and inert background come from the platform. */
+dialog.modal {
+  border: 1px solid var(--border); border-radius: 1.5rem; background: var(--overlay); color: var(--foreground);
+  padding: 0; width: min(100% - 1.5rem, 34rem); max-height: min(90dvh, 52rem);
+  box-shadow: var(--shadow-lift);
+  margin: auto;
+}
+dialog.modal[open] { display: flex; flex-direction: column; animation: pop-in 0.2s ease-out both; }
+dialog.modal::backdrop { background: rgb(4 10 6 / 0.6); backdrop-filter: blur(4px); }
+dialog.modal.size-xs { width: min(100% - 1.5rem, 24rem); }
+dialog.modal.size-sm { width: min(100% - 1.5rem, 28rem); }
+dialog.modal.size-lg { width: min(100% - 1.5rem, 48rem); }
+dialog.modal.size-full { width: min(100% - 1.5rem, 72rem); }
+
+/* ---- Hero card (balance): always deep green glass with a lime glow, in both themes ---- */
+.hero-tint {
+  --chart-hero: var(--accent);
+  background: radial-gradient(30rem 16rem at 100% 100%, color-mix(in srgb, var(--accent) 10%, transparent), transparent 70%), var(--surface);
+}
+
+.privacy-blur { filter: blur(6px); }
+
+/* Recharts: themed tooltips and axes. */
+.recharts-tooltip-wrapper { outline: none; }
+.recharts-cartesian-axis-tick-value { fill: var(--chart-muted); font-size: 12px; }
+.recharts-surface:focus { outline: none; }
+
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-thumb { background: color-mix(in srgb, var(--foreground) 16%, transparent); background-clip: padding-box; border: 3px solid transparent; border-radius: 999px; }
+::-webkit-scrollbar-track { background: transparent; }
+
+/* Chart glow: a blurred copy of the line under the real one, and a halo on the hovered point. */
+.chart-glow path { filter: blur(5px); opacity: 0.45; }
+.chart-dot { filter: drop-shadow(0 0 8px currentColor); }
+
+/* Live prices: brief green/red wash when a price ticks, pulsing dot for live feeds. */
+@keyframes flash-up { from { background-color: color-mix(in srgb, var(--success) 32%, transparent); } to { background-color: transparent; } }
+@keyframes flash-down { from { background-color: color-mix(in srgb, var(--danger) 32%, transparent); } to { background-color: transparent; } }
+.flash-up { animation: flash-up 1.2s ease-out; border-radius: 0.4rem; }
+.flash-down { animation: flash-down 1.2s ease-out; border-radius: 0.4rem; }
+@keyframes live-pulse { 0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--success) 70%, transparent); } 70% { box-shadow: 0 0 0 7px transparent; } 100% { box-shadow: 0 0 0 0 transparent; } }
+.live-dot { animation: live-pulse 1.8s infinite; }
+
+/* Checkbox: rounded tile with a hairline border; filled with the accent and a check when on. */
+.check {
+  appearance: none;
+  -webkit-appearance: none;
+  display: inline-grid;
+  place-content: center;
+  width: 1.15rem;
+  height: 1.15rem;
+  flex-shrink: 0;
+  margin: 0;
+  border: 1px solid color-mix(in srgb, var(--foreground) 22%, transparent);
+  border-radius: 0.4rem;
+  background: var(--field-background);
+  cursor: pointer;
+  transition: background-color 0.15s, border-color 0.15s, box-shadow 0.15s;
+}
+.check:hover { border-color: color-mix(in srgb, var(--accent) 60%, var(--border)); }
+.check::after {
+  content: "";
+  width: 0.62rem;
+  height: 0.62rem;
+  transform: scale(0);
+  transition: transform 0.12s ease-out;
+  background: var(--accent-foreground);
+  clip-path: polygon(14% 52%, 0 66%, 38% 100%, 100% 22%, 86% 8%, 38% 72%);
+}
+.check:checked { background: var(--accent); border-color: var(--accent); box-shadow: 0 0 10px -3px var(--accent); }
+.check:checked::after { transform: scale(1); }
+.check:indeterminate { background: var(--accent); border-color: var(--accent); }
+.check:indeterminate::after { transform: scale(1); clip-path: inset(40% 10% 40% 10%); }
+.check:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* Compact on/off toggle for list rows (pause/resume a subscription). */
+.toggle {
+  appearance: none;
+  -webkit-appearance: none;
+  position: relative;
+  width: 2.25rem;
+  height: 1.3rem;
+  flex-shrink: 0;
+  margin: 0;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface-tertiary);
+  cursor: pointer;
+  transition: background-color 0.15s, border-color 0.15s;
+}
+.toggle::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0.15rem;
+  width: 0.95rem;
+  height: 0.95rem;
+  border-radius: 999px;
+  background: var(--muted);
+  transform: translateY(-50%);
+  transition: left 0.15s, background-color 0.15s;
+}
+.toggle:checked { background: color-mix(in srgb, var(--accent) 22%, transparent); border-color: color-mix(in srgb, var(--accent) 55%, var(--border)); }
+.toggle:checked::after { left: calc(100% - 1.1rem); background: var(--accent); box-shadow: 0 0 8px var(--accent); }
+.toggle:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
