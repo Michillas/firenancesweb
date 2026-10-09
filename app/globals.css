@@ -174,10 +174,14 @@ body {
   background-attachment: fixed;
 }
 
-button { -webkit-tap-highlight-color: transparent; }
-button, input, select, textarea { font: inherit; }
+/* In the base layer: unlayered rules beat every Tailwind utility, so `text-*` / `outline-none` on a
+   button or field would otherwise be ignored. (`body` above stays unlayered so its glow beats `bg-background`.) */
+@layer base {
+  button { -webkit-tap-highlight-color: transparent; }
+  button, input, select, textarea { font: inherit; }
 
-:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 0.5rem; }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 0.5rem; }
+}
 
 .skip-link {
   position: absolute; left: 0.5rem; top: -4rem; z-index: 100;
